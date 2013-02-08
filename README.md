@@ -1,6 +1,6 @@
 # PyDie
 
-Uses '[quantum](https://qrng.anu.edu.au/)' random numbers to generate a 'roll' from an n-sided die.
+Uses '[quantum](https://qrng.anu.edu.au/)' random numbers to generate a result from an n-numbered 'roll' from an n-sided die.
 
 ## Version
 0.1.0 (pre-alpha)

@@ -17,7 +17,7 @@ requires = ['docopt==0.6.1']
 
 setup(
     name='pydie',
-    version='0.1.0',
+    version='0.1.1',
     description='Generate a random roll from a n-number of an n-sided die',
     long_description=open('README.md').read(),
     author='Aubrey Taylor',
