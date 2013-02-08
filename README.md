@@ -3,7 +3,7 @@
 Uses '[quantum](https://qrng.anu.edu.au/)' random numbers to generate a 'roll' from an n-sided die.
 
 ## Version
-0.1.0 (beta)
+0.1.0 (pre-alpha)
 
 ## "Goddamnit! I rolled a 1 again!"
 
@@ -18,6 +18,10 @@ No, to truly achieve greatness I'll need numbers as random as I can get. But how
 >This website offers true random numbers to anyone on the internet. The random numbers are generated in real-time in our lab by measuring the quantum fluctuations of the vacuum. &hellip; By carefully measuring these fluctuations, we are able to generate ultra-high bandwidth random numbers.
 
 Eureka! Now that I have random numbers, all I needed was to employ a bit of [docopt](http://docopt.org/) [read: bloddy f*cking amazing] magic, some dogey math and I'll have a niftly [likely useless] little commandline tool!
+
+## Installation
+Note: Installation is slightly untested at the moment.
+`pip install pydie`
 
 ## Usage
 The current usage pattern looks like this:
@@ -64,7 +68,8 @@ total:  7
 - Expand this tool to a larger application, such as a socket based chat room where people can join / chat / see others rolls.
 - Probably couldn't hurt to break the code up to be a bit more testable.
 - Speaking of testable, write tests.
-- Put this on PyPi
+- ~~Put this on PyPi~~
+- Cleanup code, test pip install
 
 ## Credits
 There was a project(s) where I borrowed code to access the ANU server API and calculate an int within a range (from an ANU result). 
