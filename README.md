@@ -21,6 +21,7 @@ Eureka! Now that I have random numbers, all I needed was to employ a bit of [doc
 
 ## Installation
 Note: Installation is slightly untested at the moment.
+
 `pip install pydie`
 
 ## Usage
@@ -62,7 +63,7 @@ total:  7
 1. [Docopt](http://docopt.org/) – Command Line Interface
 
 ## TODO
-1. Currently the server is hit for ever die roll. Cache a large set of numbers from the server ahead of time to speed thing sup.
+1. Currently the server is hit for ever die roll. Cache a large set of numbers from the server ahead of time to speed things up.
 - Would be nice to use a generator to access number set too.
 - Add ability to configure / create macros like `{"main weapon roll": '2 d6 +1'}`
 - Expand this tool to a larger application, such as a socket based chat room where people can join / chat / see others rolls.
