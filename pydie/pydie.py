@@ -1,92 +1,48 @@
-"""Usage: pydie.py roll <multiplier> <die> [<modifier>]
-          pydie.py [-h | --help]
-
-Generate a random n-sided dice role.
-
-Options:
-    -h --help        print help information for this program
-
-"""
-from docopt import docopt
-import urllib
-import json
 import re
+from qnum.qrand import QRand
 
-URL = 'https://qrng.anu.edu.au/API/jsonI.php'
-MAX_RESULTS = 1024  # api example: https://qrng.anu.edu.au/API/api-demo.php
-MAX_INT = 65536  # see: http://en.wikipedia.org/wiki/65536_(number)
+class PyDie(object):
 
-def get_nums(num_results=MAX_RESULTS):
-    url = URL + '?' + urllib.urlencode({
-        'type': 'uint16',
-        'length': num_results,
-        'size': 1024,
-    })
-    # print url
-
-    result = json.loads(urllib.urlopen(url).read())
-    assert result['success'] is True, result
-    assert result['length'] == num_results, result
-
-    # print 'success!'
-    return result['data']
+    def __init__(self):
+        super(PyDie, self).__init__()
 
 
-def rand_int_list(max, min=1, num_results=1):
-    range = max - min
-    mod = MAX_INT / range
-    nums = get_nums(num_results)
-    results = []
+    def roll(self, multiplier, die, modifier_str=''):
+        # re will capture the digits from "d20"
+        rDie = r'(\d+)'
 
-    for x in nums:
-        results.append(x / mod + min)
+        # re will match a +n or -n and capture the "n"
+        rBonuses = r'\+(\d+)'
+        rPenalties = r'-(\d+)'
+        
+        result = {
+            'multiplier': multiplier,
+            'die': die,
+            'modifier_str': modifier_str,
+            'roll_results': [],
+            'original_result': -1,
+            'modified_result': -1
+        }
 
-    # print results
-    return results
+        # number proceeding the d is our number of sides or "max_num"
+        max_num = int(re.search(rDie))
+        
+        # get random number set from qrand
+        roll_results = QRand.qnum_ranged_set(multiplier, max_num)
 
-def rand_int(max, min=1):
-    range   = max-min
-    modulus = MAX_INT / range
-    num     = get_nums(1)[0]
-    result  = num / modulus + min
+        # store original result
+        original_result = sum(roll_results)
+        
+        # apply modifiers to result and store modified result
+        # list comp is, for all captured matches in modified_str 
+        #   convert to int and sum
+        modified_result = original_result
+        modified_result += sum([int(b) for b in re.findall(rBonuses, modifier_str)])
+        modified_result -= sum([int(p) for p in re.findall(rPenalties, modifier_str)])
 
-    return result
+        # update result
+        result.roll_results = roll_results
+        result.original_result = original_result
+        result.modified_result = modified_result
 
-def roll(multi, die, mod='0'):
-    print 'rolling!', multi, die
-
-    sides = die.split('d')[1]
-
-    rolls = rand_int_list(int(sides), 1, int(multi))
-    total = sum(rolls)
-
-    print 'rolls:', rolls;
-    print 'total before mod:', total
-
-    bonuses = re.findall(r'\+[0-9]+', mod)
-    penalties = re.findall(r'-[0-9]+', mod)
-
-    print 'bonuses:', bonuses
-    for b in bonuses:
-        bonus = int(b.split('+')[1])
-        total = total + bonus
-        # print 'bonus', bonus
-
-    print 'penalties:', penalties
-    for p in penalties:
-        penalty = int(p.split('-')[1])
-        total = total - penalty
-        # print 'penalty', penalty
-
-    print 'total: ', total;
-
-if __name__ == '__main__':
-    arguments = docopt(__doc__)
-    # print(arguments)
-
-    if(arguments['roll']):
-        multi = arguments['<multiplier>']
-        die   = arguments['<die>']
-        mod   = '0' if not arguments['<modifier>'] else arguments['<modifier>']
-
-        roll(multi, die, mod)
+        return result
