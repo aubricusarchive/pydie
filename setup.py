@@ -20,12 +20,12 @@ requires = [
 ]
 
 entry_points = {
-    'console_scripts': ['pydie = pydie.cli:main'],
+    'console_scripts': ['pydie = pydie.cli:main']
 }
 
 setup(
     name='pydie',
-    version='0.1.5',
+    version='0.1.1',
     description='Generate a random roll from a n-number of an n-sided die',
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',
