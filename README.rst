@@ -1,6 +1,6 @@
-======
-Readme
-======
+=====
+PyDie
+=====
 
 Uses quantum random numbers to generate a result from an n-numbered 'roll' from an n-sided die.
 
