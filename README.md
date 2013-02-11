@@ -3,7 +3,7 @@
 Uses '[quantum](https://qrng.anu.edu.au/)' random numbers to generate a result from an n-numbered 'roll' from an n-sided die.
 
 ## Version
-0.1.1 (pre-alpha)
+0.1.2 (pre-alpha)
 
 ## "Goddamnit! I rolled a 1 again!"
 
@@ -20,15 +20,14 @@ No, to truly achieve greatness I'll need numbers as random as I can get. But how
 Eureka! Now that I have random numbers, all I needed was to employ a bit of [docopt](http://docopt.org/) [read: bloddy f*cking amazing] magic, some dogey math and I'll have a niftly [likely useless] little commandline tool!
 
 ## Installation
-Note: Installation is slightly untested at the moment.
 
 `pip install pydie`
 
 ## Usage
 The current usage pattern looks like this:
 ```python
-"""Usage: pydie.py roll <multiplier> <die> [<modifier>]
-          pydie.py [-h | --help]
+"""Usage: pydie roll <multiplier> <die> [<modifier>]
+          pydie [-h | --help]
 
 Generate a random n-sided dice role.
 
@@ -46,31 +45,21 @@ The command arguments are simple:
 ```
 An example roll looks a lot like this:
 ```bash
-pydie.py roll 2 d6 +3+2-1
+pydie roll 2 d4 +1
 ```
 
 And might output something like:
 ```bash
-rolling! 2 d6
-rolls: [1, 2]
-total before mod: 3
-bonuses: ['+3', '+2']
-penalties: ['-1']
-total:  7
+Rolling 2 d4s
+
+Your result is 4!
+Your original rolls were [1, 2]
+Your original total was 3
+You applied the following modifiers +1
 ```
 
 ## Dependencies
 1. [Docopt](http://docopt.org/) – Command Line Interface
-
-## TODO
-1. Currently the server is hit for ever die roll. Cache a large set of numbers from the server ahead of time to speed things up.
-- Would be nice to use a generator to access number set too.
-- Add ability to configure / create macros like `{"main weapon roll": '2 d6 +1'}`
-- Expand this tool to a larger application, such as a socket based chat room where people can join / chat / see others rolls.
-- Probably couldn't hurt to break the code up to be a bit more testable.
-- Speaking of testable, write tests.
-- ~~Put this on PyPi~~
-- Cleanup code, test pip install
 
 ## Credits
 There was a project(s) where I borrowed code to access the ANU server API and calculate an int within a range (from an ANU result). 
@@ -78,13 +67,8 @@ There was a project(s) where I borrowed code to access the ANU server API and ca
 Unfortunately I can't seem to remember from whom I was inspired. If you come across this and you think you contributed, please send me a message so I can give proper attribuition!
 
 ## Disclaimer
-It's quite possible I've got this whole thing wrong and this doesn't simulate die rolls acurately at all. If you're especially skilled at math AND communicating to laymen like myself, please feel free to comment.
+Ok, so this little toy in no way calculates the 'actual' probability of a certain die roll. I'm sure that to be 'truly' accurate it should probably account for that in some way. But, you know, that sounds like a lot of math and I'm not exactly a math major. 
 
-## License
-Copyright 2013 aubricus [https://github.com/aubricus/pydie](https://github.com/aubricus/pydie)
+Let's just say this boils down to a fancy random number generator that allows you to specify a range.
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
-
-[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+If you are good at math and my blatant disregard for accuracy has insensed your sensibilities feel free to comment! 

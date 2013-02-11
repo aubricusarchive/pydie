@@ -25,11 +25,12 @@ entry_points = {
 
 setup(
     name='pydie',
-    version='0.1.1',
+    version='0.1.2',
     description='Generate a random roll from a n-number of an n-sided die',
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',
     url='http://github.com/aubricus/pydie',
+    long_description=open('README.md').read(),
     packages=packages,
     install_requires=requires,
     package_dir={'pydie': 'pydie'},
