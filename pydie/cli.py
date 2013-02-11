@@ -1,4 +1,3 @@
-
 """Usage:
     pydie roll <multiplier> <die> [<modifier>]
     pydie [-h | --help]
@@ -23,7 +22,7 @@ def main():
         die = arguments['<die>']
         mod_str = arguments['<modifier>']
 
-        print '\nRolling {0} {1}s'.format(arguments['<multiplier>'], arguments['<die>'])
+        print '\nRolling {0} {1}s'.format(multiplier, die)
 
         result = roll(
             multiplier,
