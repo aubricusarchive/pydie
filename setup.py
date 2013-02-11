@@ -13,22 +13,27 @@ packages = [
     'pydie'
 ]
 
-requires = ['docopt==0.6.1']
+requires = [
+    'docopt==0.6.1'
+]
+
+entry_points = {
+    'console_scripts': [
+            'pydie = pydie.cli:main',
+        ],
+}
 
 setup(
     name='pydie',
-    version='0.1.1',
+    version='0.1.2',
     description='Generate a random roll from a n-number of an n-sided die',
-    long_description=open('README.md').read(),
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',
     url='http://github.com/aubricus/pydie',
-    license=open('LICENSE.md').read(),
     packages=packages,
-    package_data={'': ['LICENSE.md']},
-    include_package_data=True,
     install_requires=requires,
     package_dir={'pydie': 'pydie'},
+    entry_points=entry_points,
     classifiers=(
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
