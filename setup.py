@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import os
 import sys
 from setuptools import setup
@@ -14,18 +15,17 @@ packages = [
 ]
 
 requires = [
+    'setuptools',
     'docopt==0.6.1'
 ]
 
 entry_points = {
-    'console_scripts': [
-            'pydie = pydie.cli:main',
-        ],
+    'console_scripts': ['pydie = pydie.cli:main'],
 }
 
 setup(
     name='pydie',
-    version='0.1.2',
+    version='0.1.5',
     description='Generate a random roll from a n-number of an n-sided die',
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',

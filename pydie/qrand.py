@@ -2,6 +2,8 @@ import urllib
 import json
 import settings
 
+# import pdb
+
 # see: http://en.wikipedia.org/wiki/65536_(number)
 # api example: https://qrng.anu.edu.au/API/api-demo.php
 
@@ -19,20 +21,22 @@ def request_qnum_set(length=1):
 
     if(
         response['success'] is True and
-        response['length'] == length
+        response['length'] is length
     ):
-        result = response
+        result = response['data']
 
     return result
-
-
-def qnum_ranged_set(length, max, min=1):
-    qset = request_qnum_set(length)
-    return qnum_set_to_range(qset, max, min)
 
 
 def qnum_set_to_range(qset, max, min=1):
     qnum_range = max - min
     modulus = settings.MAX_INT / qnum_range
 
-    return [(x / modulus) + min for x in qset]
+    ranged_set = [(x / modulus) + min for x in qset]
+    return ranged_set
+
+
+def qnum_ranged_set(length, max, min=1):
+    qset = request_qnum_set(length)
+    ranged_set = qnum_set_to_range(qset, max, min)
+    return ranged_set
