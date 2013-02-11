@@ -12,6 +12,8 @@
         - Get an additional result (might be more efficient to get n-sides + 1)
         - Reduce additional result to range (1-20)
         - And use that number to pick an index from the original set at random
+        - Repeat n-rolls
+        - Again maybe more efficient to total number of sides + n-rolls
 
 ### Long List
 - Create a larger application out of this
