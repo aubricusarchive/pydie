@@ -17,7 +17,7 @@ No, to truly achieve greatness I'll need numbers as random as I can get. But how
 
 >This website offers true random numbers to anyone on the internet. The random numbers are generated in real-time in our lab by measuring the quantum fluctuations of the vacuum. &hellip; By carefully measuring these fluctuations, we are able to generate ultra-high bandwidth random numbers.
 
-Eureka! Now that I have random numbers, all I needed was to employ a bit of [docopt](http://docopt.org/) [read: bloddy f*cking amazing] magic, some dogey math and I'll have a niftly [likely useless] little commandline tool!
+Eureka! Now that I have random numbers, all I needed was to employ a bit of [docopt](http://docopt.org/) [read: amazing] magic, some dogey math and I'll have a niftly [likely useless] little commandline tool!
 
 ## Installation
 
