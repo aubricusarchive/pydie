@@ -17,7 +17,6 @@ from docopt import docopt
 
 def main():
     arguments = docopt(__doc__)
-    print arguments
 
     if(arguments['roll']):
         multiplier = int(arguments['<multiplier>'])
