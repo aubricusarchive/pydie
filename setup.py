@@ -28,7 +28,7 @@ entry_points = {
 setup(
     url='http://github.com/aubricus/pydie',
     name='pydie',
-    version='0.1.6',
+    version='0.1.7',
     description='Generate a random roll from a n-number of an n-sided die',
     author='Aubrey Taylor',
     author_email='aubricus@gmail.com',

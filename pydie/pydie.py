@@ -21,6 +21,8 @@ def roll(multiplier, die, modifier_str=''):
         'roll_results': [],
         'original_result': -1,
         'modified_result': -1,
+        'bonuses': [],
+        'penalties': [],
         'success': False
     }
 
@@ -37,12 +39,16 @@ def roll(multiplier, die, modifier_str=''):
     # list comp is, for all captured matches in modified_str
     #   convert to int and sum
     modified_result = original_result
-    modified_result += sum([int(b) for b in re.findall(rBonuses, modifier_str)])
-    modified_result -= sum([int(p) for p in re.findall(rPenalties, modifier_str)])
+    bonuses = re.findall(rBonuses, modifier_str)
+    penalties = re.findall(rPenalties, modifier_str)
+    modified_result += sum([int(b) for b in bonuses])
+    modified_result -= sum([int(p) for p in penalties])
 
     # update result
     result['roll_results'] = roll_results
     result['original_result'] = original_result
+    result['bonuses'] = [int(b) for b in bonuses]
+    result['penalties'] = [int(p) for p in penalties]
     result['modified_result'] = modified_result
 
     if original_result != -1:
