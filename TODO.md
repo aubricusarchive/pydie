@@ -2,7 +2,7 @@
 
 ### Short List
 - ~~Probably couldn't hurt to break the code up to be a bit more testable.~~
-- Speaking of testable, write tests.
+- ~~Speaking of testable, write tests.~~
 - ~~Put this on PyPi~~
 - ~~Cleanup code, test pip install~~
 - Make pydie more randomer-er...
