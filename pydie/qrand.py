@@ -1,16 +1,12 @@
 import urllib
 import json
 import settings
-
 import exceptions
-# import pdb
+
 
 # see: http://en.wikipedia.org/wiki/65536_(number)
 # api example: https://qrng.anu.edu.au/API/api-demo.php
-
-
-# todo: should error if result is bad
-def request_qnum_set(length=1):
+def request_uint16_response(length=1):
     result = None
     url = settings.ANU_API_URL + urllib.urlencode({
         'type': settings.QNUM_TYPE,
@@ -30,21 +26,31 @@ def request_qnum_set(length=1):
     return result
 
 
-def qnum_set_to_ranged_set(qset, max, min=1):
-    # qnums range from 0 to our MAX_INT
-    # factor by which to divide our resulting qnum
-    # qnum / modulus will reduce the original numbe (0 - MAX_INT)
-    #   to our range (0 - max)
+def rand_uint16_list(length, max, min=1):
+    uint16_response = request_uint16_response(length)
+    uint16_list = uint16_response['data']
+    ranged_uint16_list = reduce_uint16_list_to_range(uint16_list, max, min)
+
+    return ranged_uint16_list
+
+
+def rand_uint16(max, offset=1):
+    uint16_response = request_uint16_response(1)
+    uint16_list = uint16_response['data']
+    ranged_uint16 = reduce_uint16_to_range(uint16_list[0], max)
+
+    return ranged_uint16
+
+
+def reduce_uint16_to_range(integer, max, offset=1):
     modulus = settings.MAX_INT / max
+    ranged_uint16 = integer / modulus + offset
 
-    # + min, typically 1 offsets our values by one because most d & d die
-    #   do not have a zero value
-    ranged_set = [(x / modulus) + min for x in qset]
-    return ranged_set
+    return ranged_uint16
 
 
-def qnum_ranged_set(length, max, min=1):
-    qset_response = request_qnum_set(length)
-    qset = qset_response['data']
-    ranged_set = qnum_set_to_ranged_set(qset, max, min)
-    return ranged_set
+def reduce_uint16_list_to_range(uint16_list, max, offset=1):
+    modulus = settings.MAX_INT / max
+    ranged_uint16_list = [(x / modulus) + offset for x in uint16_list]
+
+    return ranged_uint16_list

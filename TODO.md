@@ -14,6 +14,8 @@
         - And use that number to pick an index from the original set at random
         - Repeat n-rolls
         - Again maybe more efficient to total number of sides + n-rolls
+- Update Cli to accept combinations of die e.g.,
+    - 1 d10 +1 1d6 +1
 
 ### Long List
 - Create a larger application out of this
