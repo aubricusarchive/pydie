@@ -6,14 +6,10 @@
 - ~~Put this on PyPi~~
 - ~~Cleanup code, test pip install~~
 - Make pydie more randomer-er...
-    - ANU site has a demo that takes "six values, mixes them thourghly and writes down the result"
+    - ANU site has a demo that takes "six values, mixes them thourghly, picks one, and writes down the result"
     - Maybe pydie could do the same thing
-        - Instead of a range of one result, grab n-sides in a set (20 results for a d20)
-        - Get an additional result (might be more efficient to get n-sides + 1)
-        - Reduce additional result to range (1-20)
-        - And use that number to pick an index from the original set at random
-        - Repeat n-rolls
-        - Again maybe more efficient to total number of sides + n-rolls
+        - create range 1 - 20
+        - shuffle range
 - Update Cli to accept combinations of die e.g.,
     - 1 d10 +1 1d6 +1
 

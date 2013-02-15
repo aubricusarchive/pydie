@@ -6,48 +6,47 @@ sys.path.insert(0, os.path.abspath('../'))
 
 import unittest
 from pydie import exceptions
-from pydie import pydie
+# from pydie import pydie
 from pydie import qrand
 from pydie import settings
 
 
 class PyDieTestSuite(unittest.TestCase):
 
-    def test_request_qnum_set_error(self):
+    def setUp(self):
+        self.min_uint = 1
+        self.max_uint = 20
+        self.qset_length = 100
+        self.qresponse = qrand.request_uint16_response(self.qset_length)
+
+    def test_request_uint16_response_failure(self):
         with self.assertRaises(exceptions.AnuApiFailed):
+
             # raise exceptions.AnuApiFailed()
-            qrand.request_qnum_set(settings.MAX_SET_LENGTH + 1)
-            pass
+            qrand.request_uint16_response(settings.MAX_SET_LENGTH + 1)
 
-    def test_request_qnum_set(self):
-        qset_response = qrand.request_qnum_set(10)
-        self.assertTrue(qset_response['success'])
+    def test_request_uint16_response(self):
 
-    def test_qnum_set_to_ranged_set(self):
-        length = 10
-        max = 20
-        qset_response = qrand.request_qnum_set(length)
-        qset = qset_response['data']
-        qranged_set = qrand.qnum_set_to_ranged_set(qset, max)
+        success = self.qresponse['success']
+        length_match = len(self.qresponse['data'])
 
-        # we know our set is likely in range if the total of all values
-        #   is less than our max value * length of the set
-        self.assertTrue(sum(qranged_set) <= length * max)
+        self.assertTrue(success and length_match)
 
-    def test_d20(self):
-        roll_result = pydie.roll(1, "d20")
-        modified_result = roll_result['modified_result']
+    def test_uint16_to_range(self):
+        quint = self.qresponse['data'][0]
+        quint_ranged = qrand.reduce_uint16_to_range(quint, self.max_uint, self.min_uint)
+        is_in_range = (quint_ranged >= self.min_uint and quint_ranged <= self.max_uint)
 
-        self.assertTrue(modified_result >= 1 and modified_result <= 20)
+        self.assertTrue(is_in_range)
 
-    def test_d20_with_modifier(self):
-        min = 1
-        max = 20
-        roll_result = pydie.roll(1, 'd20', '+3-2+5')
-        bonuses = roll_result['bonuses']
-        penalties = roll_result['penalties']
-        modified_result = roll_result['modified_result']
+    def test_reduce_uint16_list_to_range(self):
+        quint_list = self.qresponse['data']
+        quint_list_ranged = qrand.reduce_uint16_list_to_range(quint_list, self.max_uint, self.min_uint)
+        quint_list_sum = sum(quint_list_ranged)
+        quint_list_max_sum = self.max_uint * self.qset_length
 
-        modified_max = max + sum(bonuses) - sum(penalties)
+        # List is likely full of correctly ranged numbers if the sum of the list
+        # is not greater than the length of the set * the max value.
+        is_in_range = quint_list_sum <= quint_list_max_sum
 
-        self.assertTrue(modified_result >= min and modified_result <= modified_max)
+        self.assertTrue(is_in_range)

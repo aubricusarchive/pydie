@@ -2,8 +2,6 @@ import re
 import qrand
 from random import shuffle
 
-# import pdb
-
 # re will capture the digits from "d20"
 rDie = r'(\d+)'
 
@@ -58,24 +56,67 @@ def roll(multiplier, die, modifier_str=''):
     return result
 
 
+def apply_modifiers(original_result, modifier_str):
+    modified_result = original_result
+    bonuses = re.findall(rBonuses, modifier_str)
+    penalties = re.findall(rPenalties, modifier_str)
+    modified_result += sum([int(b) for b in bonuses])
+    modified_result -= sum([int(p) for p in penalties])
+
+    return {
+        'result': modified_result,
+        'bonuses': bonuses,
+        'penalties': penalties
+    }
+
+
 # get n-results for n-sides of a die
 # get 1 additional result to select roll result
 # repeat for each roll
 # set_length = n-sides * n-rolls + n-rolls
 def roll_new(multiplier, die, modifier_str):
+
+    modifier_str = '' if not modifier_str else modifier_str
+
+    result = {
+        'multiplier': multiplier,
+        'die': die,
+        'modifier_str': modifier_str,
+        'roll_results': [],
+        'original_result': -1,
+        'modified_result': -1,
+        'bonuses': [],
+        'penalties': [],
+        'success': False
+    }
+
     max_num = int(re.findall(rDie, die)[0])
     num_bag = range(1, max_num + 1)
 
+    # "shuffle" our numbers before picking out of the "bag"
     shuffle_count = qrand.rand_uint16(50)
-    print('shuffle_count', shuffle_count)
+
     while(shuffle_count):
         shuffle(num_bag)
-        print('shuflz', num_bag)
         shuffle_count -= 1
 
+    # create a n-random choices
+    # use these numbers to select a number from our "bag"
     choices = qrand.rand_uint16_list(multiplier, max_num)
+
+    # @todo: -1 here doesn't feel quite right, revisit
     roll_results = [num_bag[x - 1] for x in choices]
+    original_result = sum(roll_results)
+    modified_result_data = apply_modifiers(original_result, modifier_str)
 
-    print('num_bag', num_bag, 'choices', choices)
+    # collect results for return
+    result['roll_results'] = roll_results
+    result['original_result'] = original_result
+    result['modified_result'] = modified_result_data['result']
+    result['bonuses'] = modified_result_data['bonuses']
+    result['penalties'] = modified_result_data['penalties']
 
-    return roll_results
+    if original_result > 0:
+        result['success'] = True
+
+    return result

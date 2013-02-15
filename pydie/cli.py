@@ -1,6 +1,7 @@
 """Usage:
     pydie roll <multiplier> <die> [<modifier>]
     pydie roll_new <multiplier> <die> [<modifier>]
+
     pydie [-h | --help]
 
     Generate a random n-sided dice role.
@@ -57,6 +58,7 @@ def exe_roll_new(arguments):
 
 def main():
     arguments = docopt(__doc__)
+    print(arguments)
 
     if(arguments['roll']):
         exe_roll(arguments)
