@@ -21,6 +21,10 @@ Eureka! Now that I have random numbers, all I needed was to employ a bit of [doc
 
 ## Installation
 
+Install pip? See: [How to install Pip.](http://guide.python-distribute.org/installation.html#pip-installs-python-pip)
+
+Then simply:
+
 `pip install pydie`
 
 ## Usage
