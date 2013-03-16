@@ -1,6 +1,5 @@
 """Usage:
-    pydie roll <multiplier> <die> [<modifier>]
-    pydie roll_new <multiplier> <die> [<modifier>]
+    pydie roll <multiplier> <die> [--mod=<modifier>]
 
     pydie [-h | --help]
 
@@ -13,59 +12,34 @@
 
 import sys
 from pydie import roll
-from pydie import roll_new
 from docopt import docopt
 
 
 def exe_roll(arguments):
     multiplier = int(arguments['<multiplier>'])
     die = arguments['<die>']
-    mod_str = arguments['<modifier>']
+    # mod_str = arguments['<modifier>']
+    mod = arguments['--mod']
+
+    #todo need to look at docopt default vals
+    mod = '' if not mod else mod
 
     print '\nRolling {0} {1}s'.format(multiplier, die)
 
     result = roll(
         multiplier,
         die,
-        mod_str
+        mod
     )
 
-    if(result['success']):
-        print "\nYour result is {0}!\nYour original rolls were {1}\nYour original total was {2}\nYou applied the following modifiers {3}".format(
-
-                result['modified_result'],
-                result['roll_results'],
-                result['original_result'],
-                result['modifier_str']
-            )
-
-
-def exe_roll_new(arguments):
-    multiplier = int(arguments['<multiplier>'])
-    die = arguments['<die>']
-    mod_str = arguments['<modifier>']
-
-    print '\nRolling {0} {1}s'.format(multiplier, die)
-
-    result = roll_new(
-        multiplier,
-        die,
-        mod_str
-    )
-
-    print('roll_new: ', result)
+    print('roll: ', result)
 
 
 def main():
     arguments = docopt(__doc__)
-    print(arguments)
-
+    print arguments
     if(arguments['roll']):
         exe_roll(arguments)
-        return
-
-    if(arguments['roll_new']):
-        exe_roll_new(arguments)
         return
 
 
