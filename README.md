@@ -72,11 +72,10 @@ No, to truly achieve greatness I'll need numbers as random as I can get. But how
 
 Eureka! Now that I have random numbers, all I needed was to employ a bit of [docopt](http://docopt.org/) [read: amazing] magic, some dogey math and I'll have a niftly (likely useless) little commandline tool!
 
-## Credits
+## Other Projects
 
-There was a project(s) where I borrowed code to access the ANU server API and calculate an int within a range (from an ANU result).
-
-Unfortunately I can't seem to remember from whom I was inspired. If you come across this and you think you contributed, please send me a message so I can give proper attribuition!
+- <https://pypi.python.org/pypi/quantumrandom/>
+- <https://github.com/pcragone/anurandom>
 
 ## Disclaimer
 
