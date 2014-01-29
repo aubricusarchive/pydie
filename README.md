@@ -19,7 +19,7 @@ Then simply:
 ## Usage
 
 **Note:**
-The command arguments have been simplified since the last version (0.7.1). In fact, there are **no arguments at all!** The argv is now super simple, see the usage below for examples.
+The command arguments have been simplified since the last version (0.1.7). In fact, there are **no arguments at all!** The argv is now super simple, see the usage below for examples.
 
 Current usage pattern:
 
