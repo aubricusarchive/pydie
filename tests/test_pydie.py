@@ -2,51 +2,44 @@ from __future__ import absolute_import
 
 import sys
 import os
+import unittest
+
 sys.path.insert(0, os.path.abspath('../'))
 
-import unittest
-from pydie import exceptions
-# from pydie import pydie
-from pydie import qrand
-from pydie import settings
-
-
-class PyDieTestSuite(unittest.TestCase):
+class TestPydie(unittest.TestCase):
 
     def setUp(self):
-        self.min_uint = 1
-        self.max_uint = 20
-        self.qset_length = 100
-        self.qresponse = qrand.request_uint16_response(self.qset_length)
+        pass
 
-    def test_request_uint16_response_failure(self):
-        with self.assertRaises(exceptions.AnuApiFailed):
+    # parser tests
 
-            # raise exceptions.AnuApiFailed()
-            qrand.request_uint16_response(settings.MAX_SET_LENGTH + 1)
+    def test_parse_roll(self):
+        # test 1d3
+        # test 2d8m+1
+        # test 3d10m-1
+        # test 4d12m+1-1
+        # test 5d20+1-2+1 6d20-1+2-3
+        pass
 
-    def test_request_uint16_response(self):
+    # anu tests
 
-        success = self.qresponse['success']
-        length_match = len(self.qresponse['data'])
+    def test_fetch_uint8(self):
+        pass
 
-        self.assertTrue(success and length_match)
+    def test_fetch_uint16(self):
+        pass
 
-    def test_uint16_to_range(self):
-        quint = self.qresponse['data'][0]
-        quint_ranged = qrand.reduce_uint16_to_range(quint, self.max_uint, self.min_uint)
-        is_in_range = (quint_ranged >= self.min_uint and quint_ranged <= self.max_uint)
+    def test_fetch_hex16(self):
+        pass
 
-        self.assertTrue(is_in_range)
+    def test_anu_rand(self):
+        pass
 
-    def test_reduce_uint16_list_to_range(self):
-        quint_list = self.qresponse['data']
-        quint_list_ranged = qrand.reduce_uint16_list_to_range(quint_list, self.max_uint, self.min_uint)
-        quint_list_sum = sum(quint_list_ranged)
-        quint_list_max_sum = self.max_uint * self.qset_length
+    def test_anu_randint(self):
+        pass
 
-        # List is likely full of correctly ranged numbers if the sum of the list
-        # is not greater than the length of the set * the max value.
-        is_in_range = quint_list_sum <= quint_list_max_sum
 
-        self.assertTrue(is_in_range)
+    # cli tests
+
+    def test_got_roll(self):
+        pass
