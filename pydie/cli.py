@@ -51,8 +51,6 @@ def main():
 def received_command_roll(arguments):
     print('\nAlright let\'s do this, querying the cosmos...')
 
-    print(arguments)
-
     argv = arguments['<roll>']
     opt_result_info = arguments['--result-info']
 
