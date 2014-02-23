@@ -22,5 +22,6 @@ def parse_roll(rollstr):
     # TODO: Add error handling here
     roll_dict = rDie.match(roll).groupdict()
     roll_dict['modifiers'] = modifiers
+    roll_dict['argv'] = rollstr
 
     return roll_dict
