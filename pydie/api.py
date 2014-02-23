@@ -13,3 +13,8 @@ def do_roll(roll_dict, roll_method):
 
 def do_rolls_from_argv(rolls_argv, roll_method):
     return [do_roll(roll, roll_method) for roll in parse_rolls_argv(rolls_argv)]
+
+
+def roll(*args):
+    from pydie import rollmethods
+    return do_rolls_from_argv(args, rollmethods.anu_pick_n_shuffle)

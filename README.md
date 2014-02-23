@@ -3,7 +3,7 @@
 Uses '[quantum](https://qrng.anu.edu.au/)' random numbers to generate a result from an n-numbered 'roll' from an n-sided die adding any specified modifiers.
 
 ## Version
-0.2.1 (pre-alpha)
+0.2.2 (pre-alpha)
 
 ## Dependencies
 1. [Docopt](http://docopt.org/) – Command Line Interface
@@ -18,10 +18,48 @@ Then simply:
 
 ## Usage
 
+You can use this package from the cli or within python.
+
+To use it within python:
+
+```python
+import pydie
+
+pydie.roll('1d3', '2d6', '3d12m+2')
+
+# should return something like:
+# [
+#   {
+#     'raw': [1],
+#     'modifiers': [],
+#     'multiplier': '1',
+#     'die': '3',
+#     'rolls': [1],
+#     'argv': '1d3'
+#   },
+#   {
+#     'raw': [1, 1],
+#     'modifiers': [],
+#     'multiplier': '2',
+#     'die': '6',
+#     'rolls': [1, 1],
+#     'argv': '2d6'
+#   },
+#   {
+#     'raw': [1, 12, 5],
+#     'modifiers': ['+2'],
+#     'multiplier': '3',
+#     'die': '12',
+#     'rolls': [3, 14, 7],
+#     'argv': '3d12m+2'
+#   }
+# ]
+```
+
+Current cli usage pattern:
+
 **Note:**
 The command arguments have been simplified since the last version (0.1.7). In fact, there are **no arguments at all!** The argv is now super simple, see the usage below for examples.
-
-Current usage pattern:
 
 ```python
 """Usage:
