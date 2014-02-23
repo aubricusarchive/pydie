@@ -3,7 +3,7 @@
 Uses '[quantum](https://qrng.anu.edu.au/)' random numbers to generate a result from an n-numbered 'roll' from an n-sided die adding any specified modifiers.
 
 ## Version
-0.2.0 (pre-alpha)
+0.2.1 (pre-alpha)
 
 ## Dependencies
 1. [Docopt](http://docopt.org/) – Command Line Interface
