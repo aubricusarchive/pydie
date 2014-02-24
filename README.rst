@@ -12,7 +12,7 @@ PyDie
 
 Uses quantum random numbers to generate a result from an n-numbered 'roll' from an n-sided die.
 
-Links
+Checkout the Github for usage; links below:
 -----
 
 * GitHub: https://github.com/aubricus/pydie

@@ -4,7 +4,7 @@ import os
 import sys
 from setuptools import setup
 
-from pydie import get_version
+from pydie import __version__
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
@@ -15,9 +15,10 @@ os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
 # Setup arg values
 url              = 'http://github.com/aubricus/pydie'
 name             = 'pydie'
-version          = get_version()
-description      = 'Generate a random roll from a n-number of an n-sided die'
+version          = __version__
+description      = 'Generate a random roll from a n-number of an n-sided die.'
 long_description = open('README.rst').read()
+license          = open('LICENSE.md').read()
 author           = 'Aubrey Taylor'
 author_email     = 'aubricus@gmail.com'
 zip_safe         = False
@@ -62,6 +63,7 @@ setup(
     entry_points=entry_points,
     package_dir=package_dir,
     long_description=long_description,
+    license=license,
     classifiers=classifiers,
 )
 
