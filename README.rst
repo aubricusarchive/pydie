@@ -2,14 +2,6 @@
 PyDie
 =====
 
-.. image:: https://pypip.in/v/pydie/badge.png
-    :target: https://pypi.python.org/pypi/pydie/
-    :alt: Latest Version
-.. image:: https://pypip.in/d/pydie/badge.png
-    :target: https://pypi.python.org/pypi//pydie/
-    :alt: Downloads
-
-
 Uses quantum random numbers to generate a result from an n-numbered 'roll' from an n-sided die.
 
 Checkout the Github for usage; links below:
