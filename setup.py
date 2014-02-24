@@ -17,11 +17,12 @@ url              = 'http://github.com/aubricus/pydie'
 name             = 'pydie'
 version          = __version__
 description      = 'Generate a random roll from a n-number of an n-sided die.'
-long_description = open('README.rst').read()
+long_description = ''
 license          = open('LICENSE.md').read()
 author           = 'Aubrey Taylor'
 author_email     = 'aubricus@gmail.com'
 zip_safe         = False
+download_url     = 'https://github.com/aubricus/pydie/archive/master.zip'
 
 package_dir = {'pydie': 'pydie'}
 packages = [
@@ -50,6 +51,30 @@ classifiers = (
     'Programming Language :: Python :: 2.7',
 )
 
+try:
+    import subprocess
+    import pandoc
+
+    process = subprocess.Popen(
+        ['which pandoc'],
+        shell=True,
+        stdout=subprocess.PIPE,
+        universal_newlines=True
+    )
+
+    pandoc_path = process.communicate()[0]
+    pandoc_path = pandoc_path.strip('\n')
+
+    pandoc.core.PANDOC_PATH = pandoc_path
+
+    doc = pandoc.Document()
+    doc.markdown = open('README.md').read()
+
+    long_description = doc.rst
+
+except:
+    pass
+
 setup(
     url=url,
     name=name,
@@ -65,6 +90,7 @@ setup(
     long_description=long_description,
     license=license,
     classifiers=classifiers,
+    download_url=download_url,
 )
 
 del os.environ['PYTHONDONTWRITEBYTECODE']

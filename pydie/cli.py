@@ -37,10 +37,10 @@ from pydie import rollmethods
 
 
 def main():
-    from pydie import get_version
+    from pydie import __version__
 
     arguments = docopt(
-        __doc__, version=get_version()
+        __doc__, version=__version__
     )
 
     if arguments['roll']:

@@ -62,7 +62,7 @@ def fetch_uint16(length=1):
 
 
 def fetch_hex16(size=1, length=6):
-    """Fetch list of hex16 (number between 0000–ffff) from ANU API.
+    """Fetch list of hex16 (number between 0000-ffff) from ANU API.
     """
     fetch(TYPE_HEX16, length=length, size=size)
 
