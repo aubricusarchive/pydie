@@ -16,7 +16,18 @@ MAX_BLOCK_SIZE = '1024'  # applies only to hex16
 MAX_SET_LENGTH = '1024'
 
 def fetch(uinttype, length=1, size=6):
+    """
+    Fetch a list of numbers from the ANU api
 
+    Arguments:
+    uinttype -- The ANU supported uinttype, see pydie.enums
+    length -- The length of the number set you wish to fetch
+    size -- The block size 1-1024; only applies to uint type HEX16
+
+    Returns:
+    dict
+
+    """
     params = urllib.urlencode(
         {
             'type': uinttype,
@@ -39,18 +50,37 @@ def fetch(uinttype, length=1, size=6):
         ))
 
 def fetch_uint8(length=1):
+    """Fetch list of uint8 (number between 0-255) from the ANU API.
+    """
     fetch(TYPE_UINT8, length=length)
 
 
 def fetch_uint16(length=1):
+    """Fetch list of uint16 (number between 0-65535) from ANU API.
+    """
     fetch(TYPE_UINT16, length=length)
 
 
 def fetch_hex16(size=1, length=6):
+    """Fetch list of hex16 (number between 0000–ffff) from ANU API.
+    """
     fetch(TYPE_HEX16, length=length, size=size)
 
 
 def rand(min=0, max=1, length=1, uinttype=TYPE_UINT16, size=6):
+    """Fetch a list of random uints with in a range from the ANU API
+
+    Keyword Arguments:
+    min -- the minimum number of the range
+    max -- the maximum number of the range
+    length -- the length of the random number set to be returned
+    uintype -- any of 3 supported ANU uint types, see fetch methods
+    size -- size of hex16 block, hex16 only
+
+    Returns:
+    list
+    """
+
     response = fetch(uinttype, length=length, size=size)
     numlist = deque(response['data'])
 
@@ -67,12 +97,17 @@ def rand(min=0, max=1, length=1, uinttype=TYPE_UINT16, size=6):
     return result
 
 def randint(min=0, max=1, length=1, uinttype=TYPE_UINT16, size=6):
-    # int(round(pick)) flattens floats that come back from anu.rand
-    # python 2.7 round() returns a float :sadface:
+    """Fetch a list of random uints within a range from the ANU API.
+
+    Wraps rand, but casts results to int.
+    """
+
     return [int(round(x)) for x in rand(**locals())]
 
 
 def get_uintmax(uinttype):
+    """Returns the max int value for uinttype."""
+
     if uinttype == TYPE_UINT16:
         return MAX_UINT16
 
