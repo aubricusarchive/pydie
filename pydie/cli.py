@@ -4,24 +4,19 @@
     pydie (-h | --help)
 
     Description:
-
         Generate a random n-sided for n-die roles.
 
     Commands:
-
         roll  Roll any kind of die to receive a randomized dice roll.
-
-              - Roll command format {multiplier}{die}[m{modifiers}]...
+              - Roll command format {multiplier}{die}[{modifiers}...]...
               - Multipler is required, min 1; 0 will cause error
-              - "m" is required when specifying modifiers
               - "+", plus, or "-", minus, is required before each modifier
 
-    Roll Examples:
-
-        roll 1d3                (single roll no mods)
-        roll 2d4m+1             (single roll mod)
-        roll 3d6m-1+3           (single roll with multi-mods)
-        roll 4d8m+2 5d12m+1-2+3 (multi roll, separated with a space)
+    Examples:
+        pydie roll 1d3               (single roll no mods)
+        pydie roll 2d4+1             (single roll mod)
+        pydie roll 3d6-1+3           (single roll with multi-mods)
+        pydie roll 4d8+2 5d12+1-2+3  (multi roll, separated with a space)
 
     Options:
         -r --result-info    Display full result information (optional)
@@ -29,7 +24,10 @@
         -h --help           Display this screen
 """
 
+from __future__ import print_function
+
 import sys
+
 from docopt import docopt
 
 from pydie import api
@@ -44,8 +42,23 @@ def main():
     )
 
     if arguments['roll']:
-        received_command_roll(arguments)
-        sys.exit(0)
+        try:
+            received_command_roll(arguments)
+            sys.exit(0)
+
+        except AttributeError:
+            print('\nPossible syntax error.\n', arguments, '\n')
+            sys.exit(1)
+
+        except SystemExit:
+            status = sys.exc_info()[1][0]
+            if status > 0:
+                print('\nSystem exited with a non-zero status.')
+                sys.exit(status)
+
+        except:
+            print('\nUnexpected error:', sys.exc_info()[0], '\n', arguments, '\n')
+            sys.exit(1)
 
 
 def received_command_roll(arguments):

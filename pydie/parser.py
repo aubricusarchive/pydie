@@ -9,32 +9,25 @@ def parse_roll(roll_argv):
 
     returns
 
-    # for an argument vector of '2d6m+1-1'
+    # for an argument vector of '2d6+1-1'
     {
         die: 6,
         modifiers: ['+1', '-1'],
         multiplier: 2,
-        argv: '2d6m+1'
+        argv: '2d6+1'
     }
     """
 
-    rDie = r'(?P<multiplier>\d+)d(?P<die>\d+)'
-    rModifieres = r'\+\d|-\d'
-    rDie = re.compile(rDie)
-    rModifieres = re.compile(rModifieres)
+    # Just leaving this here for reference
+    # (?P<mulit>\d+)d(?P<die>\d+)(?P<mod>[\+\d|\-\d]+)
 
-    roll_and_modifiers = roll_argv.split('m')
-    roll = roll_and_modifiers[0]
+    rRoll = r'(?P<multiplier>\d+)d(?P<die>\d+)'
+    rModifieres = r'\+\d+|\-\d+'
+    rRollPattern = re.compile(rRoll)
+    rModifieresPattern = re.compile(rModifieres)
 
-    try:
-        modifiers = roll_and_modifiers[1]
-
-        modifiers = rModifieres.findall(modifiers)
-    except:
-        modifiers = []
-
-    # TODO: Add error handling here
-    roll_dict = rDie.match(roll).groupdict()
+    modifiers = rModifieresPattern.findall(roll_argv)
+    roll_dict = rRollPattern.match(roll_argv).groupdict()
     roll_dict['modifiers'] = modifiers
     roll_dict['argv'] = roll_argv
 

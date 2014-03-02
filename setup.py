@@ -67,10 +67,14 @@ try:
 
     pandoc.core.PANDOC_PATH = pandoc_path
 
-    doc = pandoc.Document()
-    doc.markdown = open('README.md').read()
+    readme = pandoc.Document()
+    license = pandoc.Document()
 
-    long_description = doc.rst
+    readme.markdown = open('README.md').read()
+    license.markdown = open('LICENSE.md').read()
+
+    long_description = readme.rst
+    license = license.rst
 
 except:
     pass

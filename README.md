@@ -25,7 +25,7 @@ To use it within python:
 ```python
 import pydie
 
-pydie.roll('1d3', '2d6', '3d12m+2')
+pydie.roll('1d3', '2d6', '3d12+2')
 
 # should return something like:
 # [
@@ -51,15 +51,12 @@ pydie.roll('1d3', '2d6', '3d12m+2')
 #     'multiplier': '3',
 #     'die': '12',
 #     'rolls': [3, 14, 7],
-#     'argv': '3d12m+2'
+#     'argv': '3d12+2'
 #   }
 # ]
 ```
 
 Current cli usage pattern:
-
-**Note:**
-The command arguments have been simplified since the last version (0.1.7). In fact, there are **no arguments at all!** The argv is now super simple, see the usage below for examples.
 
 ```python
 """Usage:
@@ -68,24 +65,19 @@ The command arguments have been simplified since the last version (0.1.7). In fa
     pydie (-h | --help)
 
     Description:
-
         Generate a random n-sided for n-die roles.
 
     Commands:
-
         roll  Roll any kind of die to receive a randomized dice roll.
-
-              - Roll command format {multiplier}{die}[m{modifiers}]...
+              - Roll command format {multiplier}{die}[{modifiers}...]...
               - Multipler is required, min 1; 0 will cause error
-              - "m" is required when specifying modifiers
               - "+", plus, or "-", minus, is required before each modifier
 
     Examples:
-
-        1d3                (single roll no mods)
-        2d4m+1             (single roll mod)
-        3d6m-1+3           (single roll with multi-mods)
-        4d8m+2 5d12m+1-2+3 (multi roll, separated with a space)
+        pydie roll 1d3               (single roll no mods)
+        pydie roll 2d4+1             (single roll mod)
+        pydie roll 3d6-1+3           (single roll with multi-mods)
+        pydie roll 4d8+2 5d12+1-2+3  (multi roll, separated with a space)
 
     Options:
         -r --result-info    Display full result information (optional)
@@ -117,8 +109,31 @@ Eureka! Now that I have random numbers, all I needed was to employ a bit of [doc
 
 ## Disclaimer
 
-Ok, full-disclosure, I majored in something other than math and probability is hard. So instead, I borrowed this example from [ANU's Site](http://qrng.anu.edu.au/index.php). Through completely unscientific means I have judged this technique acceptable:
+Ok, full-disclosure, I majored in something other than math and probability is hard. So instead, I borrowed this example from [ANU's Site](http://qrng.anu.edu.au/index.php).
 
 > Put N balls into a bag numbered between Minimum number and Maximum number. Mix the balls thoroughly. Pick out one ball and write down its number. Repeat the process m times (either with replacement or without replacement).
 
 > – <http://qrng.anu.edu.au/Lucky.php>
+
+Through completely unscientific means I have judged this technique acceptable.
+
+## Changelog
+
+### 0.2.5
+- Removed "m" from roll argv
+- Added better cli errors
+
+### 0.2.4
+- Fixed bug in version util that was breaking install
+- Added docstrings
+
+### 0.2.3
+- Added a more convenient "roll" method for use in python
+
+### 0.2.1
+- Refactored roll handling out of cli.py
+
+### 0.2.0
+- Major refactor
+- Added multiroll
+- Simplified roll argv
