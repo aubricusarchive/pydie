@@ -1,7 +1,7 @@
 # PyDie
 
-[![Latest Version](https://pypip.in/v/pydie/badge.png)](https://pypi.python.org/pypi/pydie/)
-[![Downloads](https://pypip.in/d/pydie/badge.png)](https://pypi.python.org/pypi/pydie/)
+[![Latest Version](https://img.shields.io/pypi/v/pydie.svg)](https://pypi.python.org/pypi/pydie/)
+[![Downloads](https://img.shields.io/pypi/dm/pydie.svg)](https://pypi.python.org/pypi/pydie/)
 
 Uses '[quantum](https://qrng.anu.edu.au/)' random numbers to generate a result from an n-numbered 'roll' from an n-sided die adding any specified modifiers.
 
